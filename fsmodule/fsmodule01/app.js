@@ -21,7 +21,7 @@ function getcurrenttime() {
 
 }
 
-console.log(getcurrenttime);
+// console.log(getcurrenttime);
 
 
 setInterval(() => {
