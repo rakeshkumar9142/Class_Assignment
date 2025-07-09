@@ -18,15 +18,15 @@ const server = http.createServer((req,res) => {
                 const parsed = JSON.parse(body); 
                 const username = parsed.username;
 
-                res.writeHead(200, { 'Content-Type': 'text/plain' });
+
                 res.end(`Received data for user: ${username}`);
             } catch (err) {
-                res.writeHead(400, { 'Content-Type': 'text/plain' });
+                
                 res.end('Invalid JSON data');
             }
         });
     } else {
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
+    
         res.end('404 - Page Not Found');
     }
      
