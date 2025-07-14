@@ -2,7 +2,7 @@ const http = require("http");
 const fs = require("fs");
 const url = require("url");
 const querystring = require("querystring");
-const { add, sub, mul, div } = require("./calculate");
+const { add, sub, mul, div } = require("./lab14june/calculate");
 
 const PORT = 3000;
 
