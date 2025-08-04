@@ -65,7 +65,6 @@ const server = http.createServer((req,res) => {
         res.end("sub of two number is" + data);
      }
      else if (pathname === "/mul" && req.method === "POST") {
-         
         console.log(parsedUrl.query);
         let mul = mul(parsedUrl.query.num1,parsedUrl.query.num2);
         res.end("mul of two number is" + mul);
