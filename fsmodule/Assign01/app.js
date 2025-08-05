@@ -36,32 +36,7 @@ setInterval(() => {
 
 },interval)
 
-/*
 
-
-fs.writeFile('activity.log',err => {
-  if (err) {
-    console.log('Something is wrong');
-  }  else {
-    console.log('File has been created');
-  }
-
-})
-
-fs.readFile('activity.log','utf-8',(err,data) => {
-    if (err) {
-        console.log('Error accur during the file reading',err);
-    } else {
-        console.log("File has been logged");
-        fs.appendFile
-    }
-
-})
-
-
-
-
-*/
 
 
 
