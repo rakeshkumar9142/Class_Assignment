@@ -18,7 +18,7 @@ app.get('/api/data',(req,res) => {
     res.end(JSON.stringify(user))
 })
     
-app.use('/',(req,res) => {
+app.use((req,res) => {
     res.status(404).send("Page does not exist")
 })
 
