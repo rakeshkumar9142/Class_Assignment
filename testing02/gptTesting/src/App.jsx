@@ -1,72 +1,58 @@
-import React, { useState, useEffect } from "react";
+import { lazy, Suspense } from "react";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
-export default function ExamApp() {
-  const [switchCount, setSwitchCount] = useState(2);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const switchLimit = 3; // max allowed tab switches
-  const [bgColor, setBgColor] = useState("#ffffff");
+// Lazy load pages for better performance
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const UserProfile = lazy(() => import("./pages/UserProfile"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
-  // 🖱️ Change background color on resize
-  useEffect(() => {
-    function handleResize() {
-      const randomColor = `hsl(${Math.floor(Math.random() * 360)}, 80%, 80%)`;
-      setBgColor(randomColor);
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  // 👀 Track tab visibility changes
-  useEffect(() => {
-    function handleVisibilityChange() {
-      if (document.hidden) {
-        setSwitchCount((prev) => {
-          const newCount = prev + 1;
-          if (newCount >= switchLimit) {
-            setIsSubmitted(true);
-          }
-          return newCount;
-        });
-      }
-    }
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, []);
-
-  // 🎨 Page styles
-  const pageStyle = {
-    backgroundColor: bgColor,
-    minHeight: "100vh",
-    padding: "40px",
-    fontFamily: "sans-serif",
-    transition: "background-color 0.4s ease",
-  };
-
-  // If exam is submitted, show submission screen
-  if (isSubmitted) {
-    return (
-      <div style={{ ...pageStyle, textAlign: "center" }}>
-        <h1>✅ Test Submitted</h1>
-        <p>You crossed the limit of {switchLimit} tab switches.</p>
-        <p>Thank you for participating.</p>
-      </div>
-    );
-  }
-
+// Layout with shared header/footer
+function MainLayout() {
   return (
-    <div style={pageStyle}>
-      <h1>📝 Exam In Progress</h1>
-      <p>Do NOT switch tabs more than {switchLimit} times.</p>
-      <p>Tab switches so far: {switchCount}</p>
-      <p>Resize the window to see a random background color effect!</p>
+    <div>
+      <header style={{ padding: "1rem", background: "#eee" }}>
+        <h1>⚡ Atypical React Router Example</h1>
+        <nav>
+          <a href="/">Home</a> | <a href="/about">About</a> |{" "}
+          <a href="/users/john-doe">User: John Doe</a>
+        </nav>
+      </header>
+      <main style={{ padding: "1rem" }}>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Outlet />
+        </Suspense>
+      </main>
+      <footer style={{ padding: "1rem", background: "#eee" }}>
+        <small>© 2025 My Cool App</small>
+      </footer>
     </div>
   );
+}
+
+// Simulate a loader for dynamic data
+async function userLoader({ params }) {
+  // Pretend API call
+  return { username: params.username, joined: "2023-07-15" };
+}
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "about", element: <About /> },
+      {
+        path: "users/:username",
+        element: <UserProfile />,
+        loader: userLoader,
+      },
+      { path: "*", element: <NotFound /> },
+    ],
+  },
+]);
+
+export default function App() {
+  return <RouterProvider router={router} />;
 }
