@@ -1,80 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rakesh Kumar - Portfolio</title>
-    <style>
-        /* Reset some default styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #f8f9fa, #e9ecef);
-            color: #343a40;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 500px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #007bff;
-        }
-
-        p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            padding: 10px 25px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                margin: 20px;
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+  <title>Reverse String Form</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Hello, I'm Rakesh Kumar</h1>
-        <p>A passionate learner and future-ready developer based in India. Welcome to my simple HTML + CSS page!</p>
-        <a href="https://yourportfolio.com" class="btn">Visit My Portfolio</a>
-    </div>
+  <h2>Reverse String</h2>
+
+  <!-- Form -->
+  <form id="reverseForm">
+    <label for="userInput">Enter a word:</label>
+    <input type="text" id="userInput" required>
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Output -->
+  <h3>Reversed Output:</h3>
+  <p id="output"></p>
+
+  <script>
+    document.getElementById("reverseForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent page reload
+      
+      // Get input value
+      const inputString = document.getElementById("userInput").value;
+      
+      // Reverse the string
+      const reversedString = inputString.split("").reverse().join("");
+      
+      // Display on page
+      document.getElementById("output").textContent = reversedString;
+    });
+  </script>
 </body>
 </html>
